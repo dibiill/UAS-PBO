@@ -46,6 +46,9 @@ public class ClientLogin {
 
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
+                    int clientId = rs.getInt("id");
+                    String firstName = rs.getString("first_name");
+                    Session.setSession(clientId, firstName);
                     JOptionPane.showMessageDialog(frame, "Login Berhasil!");
                     
                     frame.dispose();
