@@ -97,12 +97,14 @@ public class ViewCars {
                 return;
             }
 
-            int id = (int) table.getValueAt(selectedRow, 0);
-            String brand = (String) table.getValueAt(selectedRow, 1);
-            String model = (String) table.getValueAt(selectedRow, 2);
-            int year = (int) table.getValueAt(selectedRow, 3);
-            double price = (double) table.getValueAt(selectedRow, 4);
-            String condition = (String) table.getValueAt(selectedRow, 5);
+            int id = (int) table.getValueAt(selectedRow, 1); // kolom 1 = id_car
+            String brand = (String) table.getValueAt(selectedRow, 2);
+            String model = (String) table.getValueAt(selectedRow, 3);
+            int year = (int) table.getValueAt(selectedRow, 4);
+            // Kolom 5 adalah priceFormatted (String), harus diubah ke double
+            String priceStr = (String) table.getValueAt(selectedRow, 5);
+            double price = Double.parseDouble(priceStr.replace(",", "")); // hilangkan koma
+            String condition = (String) table.getValueAt(selectedRow, 6);
 
             new UpdateCar(id, brand, model, year, price, condition);
             frame.dispose();

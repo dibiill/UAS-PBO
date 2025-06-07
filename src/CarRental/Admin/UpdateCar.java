@@ -1,9 +1,8 @@
 package CarRental.Admin;
 
 import CarRental.DatabaseConnection;
-
-import javax.swing.*;
 import java.sql.*;
+import javax.swing.*;
 
 public class UpdateCar {
     public UpdateCar(int carId, String brandVal, String modelVal, int yearVal, double priceVal, String conditionVal) {
@@ -80,6 +79,13 @@ public class UpdateCar {
                 int year = Integer.parseInt(yearField.getText());
                 double price = Double.parseDouble(priceField.getText());
                 String condition = goodBtn.isSelected() ? "Good" : "Under Maintenance";
+
+                System.out.println("carId: " + carId);
+                System.out.println("brand: " + brand);
+                System.out.println("model: " + model);
+                System.out.println("year: " + year);
+                System.out.println("price: " + price);
+                System.out.println("condition: " + condition);
 
                 try (Connection conn = DatabaseConnection.connect()) {
                     String query = "UPDATE car SET brand=?, model=?, year=?, price_per_day=?, `condition`=? WHERE id_car=?";
