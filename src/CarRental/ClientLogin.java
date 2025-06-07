@@ -3,6 +3,8 @@ package CarRental;
 import java.sql.*;
 import javax.swing.*;
 
+import CarRental.Client.ClientDashboard;
+
 public class ClientLogin {
     public ClientLogin() {
         JFrame frame = new JFrame("Client Login");
@@ -46,8 +48,11 @@ public class ClientLogin {
 
                 ResultSet rs = stmt.executeQuery();
                 if (rs.next()) {
+                    int clientId = rs.getInt("id");
+                    String firstName = rs.getString("first_name");
+                    Session.setSession(clientId, firstName);
                     JOptionPane.showMessageDialog(frame, "Login Berhasil!");
-                    
+                    new ClientDashboard();
                     frame.dispose();
                 } else {
                     JOptionPane.showMessageDialog(frame, "Email atau Password salah!");
