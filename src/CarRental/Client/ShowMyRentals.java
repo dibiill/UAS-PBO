@@ -24,14 +24,13 @@ public class ShowMyRentals {
         frame.setLayout(new BorderLayout());
         frame.getContentPane().setBackground(new Color(245, 245, 255));
 
-        // Judul
         JLabel titleLabel = new JLabel("History & Active Car Rentals", SwingConstants.CENTER);
         titleLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
         titleLabel.setOpaque(true);
-        titleLabel.setBackground(new Color(58, 123, 213));
+        titleLabel.setBackground(new Color(58, 123, 213)); // Biru lebih gelap
         titleLabel.setForeground(Color.WHITE);
         titleLabel.setBorder(BorderFactory.createCompoundBorder(
-            BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE),
+            BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE), // border bawah putih
             BorderFactory.createEmptyBorder(18, 10, 18, 10)
         ));
         frame.add(titleLabel, BorderLayout.NORTH);

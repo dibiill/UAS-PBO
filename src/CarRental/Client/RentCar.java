@@ -24,13 +24,31 @@ public class RentCar {
         frame.setLayout(new BorderLayout());
         frame.getContentPane().setBackground(new Color(245, 245, 255));
 
-        JLabel titleLabel = new JLabel("Available Cars for Rent", SwingConstants.CENTER);
-        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 20));
-        titleLabel.setForeground(new Color(44, 62, 80));
-        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 0, 20, 0));
-        frame.add(titleLabel, BorderLayout.NORTH);
+        JPanel headerPanel = new JPanel(new BorderLayout());
+        headerPanel.setBackground(new Color(58, 123, 213));
+        headerPanel.setBorder(BorderFactory.createMatteBorder(0, 0, 4, 0, Color.WHITE));
 
-        // Tabel mobil (header dan style sama dengan ViewAvailableCars)
+        JLabel titleLabel = new JLabel("Available Cars for Rent", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 22));
+        titleLabel.setForeground(Color.WHITE);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(18, 0, 18, 0));
+        headerPanel.add(titleLabel, BorderLayout.CENTER);
+
+        JButton backBtnHeader = new JButton("⟵ Back");
+        backBtnHeader.setFont(new Font("SansSerif", Font.BOLD, 13));
+        backBtnHeader.setBackground(new Color(39, 174, 96));
+        backBtnHeader.setForeground(Color.WHITE);
+        backBtnHeader.setFocusPainted(false);
+        backBtnHeader.setBorder(BorderFactory.createEmptyBorder(5, 14, 5, 14));
+        backBtnHeader.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backBtnHeader.addActionListener(e -> {
+            new ClientDashboard(clientId);
+            frame.dispose();
+        });
+        headerPanel.add(backBtnHeader, BorderLayout.WEST);
+
+        frame.add(headerPanel, BorderLayout.NORTH);
+
         String[] columnNames = {"ID", "Brand", "Model", "Year", "Price/Day", "Condition"};
         DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
@@ -41,9 +59,11 @@ public class RentCar {
         JTable table = new JTable(tableModel);
         table.setFont(new Font("SansSerif", Font.PLAIN, 15));
         table.setRowHeight(26);
-        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
-        table.getTableHeader().setBackground(new Color(100, 149, 237));
-        table.getTableHeader().setForeground(Color.WHITE);
+
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
+        tableHeader.setBackground(new Color(100, 149, 237)); // Biru soft
+        tableHeader.setForeground(Color.WHITE);
 
         // Center align kolom ID dan Year
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
@@ -79,20 +99,11 @@ public class RentCar {
         rentBtn.setBorder(BorderFactory.createEmptyBorder(8, 24, 8, 24));
         rentBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        JButton backBtn = new JButton("Back");
-        backBtn.setFocusPainted(false);
-        backBtn.setFont(new Font("SansSerif", Font.BOLD, 15));
-        backBtn.setBackground(new Color(231, 76, 60));
-        backBtn.setForeground(Color.WHITE);
-        backBtn.setBorder(BorderFactory.createEmptyBorder(8, 24, 8, 24));
-        backBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
-
         bottomPanel.add(startLabel);
         bottomPanel.add(startDateField);
         bottomPanel.add(endLabel);
         bottomPanel.add(endDateField);
         bottomPanel.add(rentBtn);
-        bottomPanel.add(backBtn);
 
         frame.add(bottomPanel, BorderLayout.SOUTH);
 
@@ -110,7 +121,6 @@ public class RentCar {
                 return;
             }
             try {
-                // Ubah parsing ke format DD/MM/YYYY
                 java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter.ofPattern("dd/MM/yyyy");
                 LocalDate start = LocalDate.parse(startDate, formatter);
                 LocalDate end = LocalDate.parse(endDate, formatter);
@@ -120,26 +130,18 @@ public class RentCar {
                 }
                 int carId = (int) tableModel.getValueAt(selectedRow, 0);
                 double pricePerDay = Double.parseDouble(tableModel.getValueAt(selectedRow, 4).toString().replace(",", ""));
-                // Simpan ke database dalam format yyyy-MM-dd
                 rentCar(carId, start.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE), end.format(java.time.format.DateTimeFormatter.ISO_LOCAL_DATE), pricePerDay);
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(frame, "Invalid date format. Use DD/MM/YYYY.");
             }
         });
 
-        // Action: Back
-        backBtn.addActionListener(e -> {
-            new ClientDashboard(clientId);
-            frame.dispose();
-        });
-
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 
-    /**
-     * Mengambil data mobil yang tersedia dari database dan mengisinya ke tabel.
-     */
+    /* Mengambil data mobil yang tersedia dari database dan mengisinya ke tabel.*/
+
     private void loadAvailableCars(DefaultTableModel tableModel) {
         String sql = "SELECT id_car, brand, model, year, price_per_day, `condition` FROM car WHERE `condition` = 'Good'";
         try (Connection conn = DatabaseConnection.connect();

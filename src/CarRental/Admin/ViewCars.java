@@ -8,6 +8,7 @@ import java.sql.*;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class ViewCars {
     public ViewCars() {
@@ -35,9 +36,13 @@ public class ViewCars {
         JTable table = new JTable(tableModel);
         table.setFont(new Font("SansSerif", Font.PLAIN, 14));
         table.setRowHeight(25);
-        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
-        table.getTableHeader().setBackground(new Color(100, 149, 237));
-        table.getTableHeader().setForeground(Color.WHITE);
+
+        // Tambahkan pengaturan warna header tabel di sini:
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
+        tableHeader.setBackground(new Color(58, 123, 213)); // Biru gelap
+        tableHeader.setForeground(Color.WHITE);
+
         table.setFillsViewportHeight(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.setShowGrid(true);
@@ -186,6 +191,7 @@ public class ViewCars {
         table.getColumnModel().getColumn(0).setPreferredWidth(40);  
         table.getColumnModel().getColumn(6).setPreferredWidth(150); 
 
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

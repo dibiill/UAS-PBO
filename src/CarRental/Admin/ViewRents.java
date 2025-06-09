@@ -1,11 +1,16 @@
 package CarRental.Admin;
 
 import CarRental.DatabaseConnection;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FlowLayout;
+import java.awt.Font;
 import java.sql.*;
 import java.time.LocalDate;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class ViewRents {
     public ViewRents() {
@@ -30,9 +35,12 @@ public class ViewRents {
         JTable table = new JTable(tableModel);
         table.setFont(new Font("SansSerif", Font.PLAIN, 14));
         table.setRowHeight(26);
-        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
-        table.getTableHeader().setBackground(new Color(100, 149, 237));
-        table.getTableHeader().setForeground(Color.WHITE);
+
+        // Tambahkan pengaturan warna header tabel di sini:
+        JTableHeader tableHeader = table.getTableHeader();
+        tableHeader.setFont(new Font("SansSerif", Font.BOLD, 14));
+        tableHeader.setBackground(new Color(58, 123, 213)); // Biru gelap
+        tableHeader.setForeground(Color.WHITE);
 
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -158,6 +166,7 @@ public class ViewRents {
             frame.dispose();
         });
 
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 

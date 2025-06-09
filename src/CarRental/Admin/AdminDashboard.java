@@ -70,6 +70,7 @@ public class AdminDashboard {
             frame.dispose();
         });
 
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }

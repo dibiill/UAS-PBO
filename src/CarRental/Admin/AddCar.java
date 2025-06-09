@@ -157,6 +157,7 @@ public class AddCar {
             frame.dispose();
         });
 
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
 }
