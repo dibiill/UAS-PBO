@@ -91,7 +91,6 @@ public class AdminLogin {
         frame.setVisible(true);
     }
 
-    // Modern button with rounded border and hover effect
     private JButton createModernButton(String text, Color color) {
         JButton btn = new JButton(text);
         btn.setFont(new Font("SansSerif", Font.BOLD, 15));

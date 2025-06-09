@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 
 public class RentCar {
     private JFrame frame;
