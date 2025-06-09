@@ -1,11 +1,11 @@
 package CarRental.Client;
 
-import javax.swing.*;
+import CarRental.DatabaseConnection;
+import CarRental.Session;
 import java.awt.*;
 import java.awt.event.*;
 import java.sql.*;
-import CarRental.DatabaseConnection;
-import CarRental.Session;
+import javax.swing.*;
 
 public class EditClientInfo extends JFrame implements ActionListener {
     private JTextField firstNameField, lastNameField, emailField, phoneField;
@@ -17,62 +17,91 @@ public class EditClientInfo extends JFrame implements ActionListener {
         setSize(400, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        getContentPane().setBackground(new Color(245, 245, 255));
         setLayout(null);
 
         JLabel title = new JLabel("Edit Informasi Client", JLabel.CENTER);
-        title.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        title.setFont(new Font("SansSerif", Font.BOLD, 18));
         title.setBounds(60, 10, 280, 30);
         add(title);
 
         JLabel firstNameLabel = new JLabel("First Name:");
+        firstNameLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         firstNameLabel.setBounds(30, 60, 100, 25);
         add(firstNameLabel);
 
         firstNameField = new JTextField();
+        firstNameField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         firstNameField.setBounds(140, 60, 200, 25);
         add(firstNameField);
 
         JLabel lastNameLabel = new JLabel("Last Name:");
+        lastNameLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         lastNameLabel.setBounds(30, 100, 100, 25);
         add(lastNameLabel);
 
         lastNameField = new JTextField();
+        lastNameField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         lastNameField.setBounds(140, 100, 200, 25);
         add(lastNameField);
 
         JLabel emailLabel = new JLabel("Email:");
+        emailLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         emailLabel.setBounds(30, 140, 100, 25);
         add(emailLabel);
 
         emailField = new JTextField();
+        emailField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         emailField.setBounds(140, 140, 200, 25);
         add(emailField);
 
         JLabel phoneLabel = new JLabel("Phone Number:");
+        phoneLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         phoneLabel.setBounds(30, 180, 100, 25);
         add(phoneLabel);
 
         phoneField = new JTextField();
+        phoneField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         phoneField.setBounds(140, 180, 200, 25);
         add(phoneField);
 
         JLabel passwordLabel = new JLabel("Password:");
+        passwordLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
         passwordLabel.setBounds(30, 220, 100, 25);
         add(passwordLabel);
 
         passwordField = new JPasswordField();
+        passwordField.setFont(new Font("SansSerif", Font.PLAIN, 14));
         passwordField.setBounds(140, 220, 200, 25);
         add(passwordField);
 
+        // Panel tombol rata tengah
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(245, 245, 255));
+        buttonPanel.setBounds(0, 270, 400, 50);
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
+
         saveButton = new JButton("Simpan");
-        saveButton.setBounds(140, 270, 90, 30);
+        saveButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        saveButton.setBackground(new Color(39, 174, 96));
+        saveButton.setForeground(Color.WHITE);
+        saveButton.setFocusPainted(false);
+        saveButton.setBorder(BorderFactory.createEmptyBorder(7, 24, 7, 24));
+        saveButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         saveButton.addActionListener(this);
-        add(saveButton);
 
         backButton = new JButton("Kembali");
-        backButton.setBounds(250, 270, 90, 30);
+        backButton.setFont(new Font("SansSerif", Font.BOLD, 14));
+        backButton.setBackground(new Color(100, 149, 237));
+        backButton.setForeground(Color.WHITE);
+        backButton.setFocusPainted(false);
+        backButton.setBorder(BorderFactory.createEmptyBorder(7, 24, 7, 24));
+        backButton.setCursor(new Cursor(Cursor.HAND_CURSOR));
         backButton.addActionListener(this);
-        add(backButton);
+
+        buttonPanel.add(saveButton);
+        buttonPanel.add(backButton);
+        add(buttonPanel);
 
         loadClientData();
 
@@ -102,7 +131,7 @@ public class EditClientInfo extends JFrame implements ActionListener {
         if (e.getSource() == saveButton) {
             updateClientData();
         } else if (e.getSource() == backButton) {
-            new ClientDashboard();
+            new ClientDashboard(Session.clientId);
             dispose();
         }
     }

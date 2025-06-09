@@ -1,6 +1,7 @@
 package CarRental.Admin;
 
 import CarRental.DatabaseConnection;
+import java.awt.*;
 import java.sql.*;
 import javax.swing.*;
 
@@ -10,47 +11,67 @@ public class UpdateCar {
         frame.setSize(400, 370);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
+        frame.getContentPane().setBackground(new Color(245, 245, 255));
+
+        JLabel titleLabel = new JLabel("Update Car Data", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        titleLabel.setBounds(60, 10, 280, 30);
+        frame.add(titleLabel);
 
         JLabel brandLabel = new JLabel("Brand:");
-        brandLabel.setBounds(30, 30, 100, 25);
+        brandLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        brandLabel.setBounds(30, 50, 100, 25);
         frame.add(brandLabel);
 
         JTextField brandField = new JTextField(brandVal);
-        brandField.setBounds(150, 30, 200, 25);
+        brandField.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        brandField.setBounds(150, 50, 200, 25);
         frame.add(brandField);
 
         JLabel modelLabel = new JLabel("Model:");
-        modelLabel.setBounds(30, 70, 100, 25);
+        modelLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        modelLabel.setBounds(30, 90, 100, 25);
         frame.add(modelLabel);
 
         JTextField modelField = new JTextField(modelVal);
-        modelField.setBounds(150, 70, 200, 25);
+        modelField.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        modelField.setBounds(150, 90, 200, 25);
         frame.add(modelField);
 
         JLabel yearLabel = new JLabel("Year:");
-        yearLabel.setBounds(30, 110, 100, 25);
+        yearLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        yearLabel.setBounds(30, 130, 100, 25);
         frame.add(yearLabel);
 
         JTextField yearField = new JTextField(String.valueOf(yearVal));
-        yearField.setBounds(150, 110, 200, 25);
+        yearField.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        yearField.setBounds(150, 130, 200, 25);
         frame.add(yearField);
 
         JLabel priceLabel = new JLabel("Price/Day:");
-        priceLabel.setBounds(30, 150, 100, 25);
+        priceLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        priceLabel.setBounds(30, 170, 100, 25);
         frame.add(priceLabel);
 
         JTextField priceField = new JTextField(String.valueOf(priceVal));
-        priceField.setBounds(150, 150, 200, 25);
+        priceField.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        priceField.setBounds(150, 170, 200, 25);
         frame.add(priceField);
 
         JLabel conditionLabel = new JLabel("Condition:");
-        conditionLabel.setBounds(30, 190, 100, 25);
+        conditionLabel.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        conditionLabel.setBounds(30, 210, 100, 25);
         frame.add(conditionLabel);
 
         JRadioButton goodBtn = new JRadioButton("Good");
-        goodBtn.setBounds(150, 190, 80, 25);
+        goodBtn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        goodBtn.setBackground(new Color(245, 245, 255));
+        goodBtn.setBounds(150, 210, 80, 25);
+
         JRadioButton maintenanceBtn = new JRadioButton("Under Maintenance");
-        maintenanceBtn.setBounds(230, 190, 120, 25);
+        maintenanceBtn.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        maintenanceBtn.setBackground(new Color(245, 245, 255));
+        maintenanceBtn.setBounds(230, 210, 140, 25);
 
         ButtonGroup conditionGroup = new ButtonGroup();
         conditionGroup.add(goodBtn);
@@ -64,13 +85,31 @@ public class UpdateCar {
             maintenanceBtn.setSelected(true);
         }
 
+        // Panel tombol rata tengah
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setBackground(new Color(245, 245, 255));
+        buttonPanel.setBounds(0, 260, 400, 50);
+        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
+
         JButton saveBtn = new JButton("Save");
-        saveBtn.setBounds(150, 240, 100, 30);
-        frame.add(saveBtn);
+        saveBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        saveBtn.setBackground(new Color(39, 174, 96));
+        saveBtn.setForeground(Color.WHITE);
+        saveBtn.setFocusPainted(false);
+        saveBtn.setBorder(BorderFactory.createEmptyBorder(7, 24, 7, 24));
+        saveBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         JButton cancelBtn = new JButton("Cancel");
-        cancelBtn.setBounds(260, 240, 90, 30);
-        frame.add(cancelBtn);
+        cancelBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        cancelBtn.setBackground(new Color(100, 149, 237));
+        cancelBtn.setForeground(Color.WHITE);
+        cancelBtn.setFocusPainted(false);
+        cancelBtn.setBorder(BorderFactory.createEmptyBorder(7, 24, 7, 24));
+        cancelBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        buttonPanel.add(saveBtn);
+        buttonPanel.add(cancelBtn);
+        frame.add(buttonPanel);
 
         saveBtn.addActionListener(e -> {
             try {
@@ -79,13 +118,6 @@ public class UpdateCar {
                 int year = Integer.parseInt(yearField.getText());
                 double price = Double.parseDouble(priceField.getText());
                 String condition = goodBtn.isSelected() ? "Good" : "Under Maintenance";
-
-                System.out.println("carId: " + carId);
-                System.out.println("brand: " + brand);
-                System.out.println("model: " + model);
-                System.out.println("year: " + year);
-                System.out.println("price: " + price);
-                System.out.println("condition: " + condition);
 
                 try (Connection conn = DatabaseConnection.connect()) {
                     String query = "UPDATE car SET brand=?, model=?, year=?, price_per_day=?, `condition`=? WHERE id_car=?";

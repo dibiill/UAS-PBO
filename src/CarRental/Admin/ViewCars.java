@@ -2,6 +2,7 @@ package CarRental.Admin;
 
 import CarRental.DatabaseConnection;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Font;
 import java.sql.*;
 import javax.swing.*;
@@ -15,8 +16,11 @@ public class ViewCars {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLayout(null);
 
-        JLabel titleLabel = new JLabel("List of All Cars");
-        titleLabel.setBounds(280, 10, 200, 30);
+        frame.getContentPane().setBackground(new Color(245, 245, 255));
+
+        JLabel titleLabel = new JLabel("List of All Cars", SwingConstants.CENTER);
+        titleLabel.setFont(new Font("SansSerif", Font.BOLD, 18));
+        titleLabel.setBounds(200, 10, 300, 30);
         frame.add(titleLabel);
 
         String[] columnNames = {"No.", "ID", "Brand", "Model", "Year", "Price/Day", "Condition"};
@@ -31,7 +35,9 @@ public class ViewCars {
         JTable table = new JTable(tableModel);
         table.setFont(new Font("SansSerif", Font.PLAIN, 14));
         table.setRowHeight(25);
-        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 15));
+        table.getTableHeader().setFont(new Font("SansSerif", Font.BOLD, 14));
+        table.getTableHeader().setBackground(new Color(100, 149, 237));
+        table.getTableHeader().setForeground(Color.WHITE);
         table.setFillsViewportHeight(true);
         table.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
         table.setShowGrid(true);
@@ -59,25 +65,43 @@ public class ViewCars {
         frame.add(scrollPane);
 
         JButton backBtn = new JButton("Back");
-        backBtn.setBounds(480, 320, 100, 30);
+        backBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        backBtn.setBackground(new Color(100, 149, 237));
+        backBtn.setForeground(Color.WHITE);
+        backBtn.setFocusPainted(false);
+        backBtn.setBorder(BorderFactory.createEmptyBorder(7, 24, 7, 24));
+        backBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        backBtn.setBounds(480, 320, 100, 32);
         frame.add(backBtn);
 
         JButton addBtn = new JButton("Add");
-        addBtn.setBounds(70, 320, 80, 30);
-        addBtn.setBackground(new Color(12, 173, 0));
+        addBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        addBtn.setBackground(new Color(39, 174, 96));
         addBtn.setForeground(Color.WHITE);
+        addBtn.setFocusPainted(false);
+        addBtn.setBorder(BorderFactory.createEmptyBorder(7, 24, 7, 24));
+        addBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        addBtn.setBounds(70, 320, 100, 32);
         frame.add(addBtn);
 
         JButton updateBtn = new JButton("Update");
-        updateBtn.setBounds(160, 320, 100, 30);
-        updateBtn.setBackground(new Color(255, 205, 0)); 
-        updateBtn.setForeground(Color.BLACK);
+        updateBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        updateBtn.setBackground(new Color(52, 152, 219));
+        updateBtn.setForeground(Color.WHITE);
+        updateBtn.setFocusPainted(false);
+        updateBtn.setBorder(BorderFactory.createEmptyBorder(7, 24, 7, 24));
+        updateBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        updateBtn.setBounds(180, 320, 110, 32);
         frame.add(updateBtn);
 
         JButton deleteBtn = new JButton("Delete");
-        deleteBtn.setBounds(270, 320, 100, 30);
-        deleteBtn.setBackground(new Color(222, 25, 0));
+        deleteBtn.setFont(new Font("SansSerif", Font.BOLD, 14));
+        deleteBtn.setBackground(new Color(231, 76, 60));
         deleteBtn.setForeground(Color.WHITE);
+        deleteBtn.setFocusPainted(false);
+        deleteBtn.setBorder(BorderFactory.createEmptyBorder(7, 24, 7, 24));
+        deleteBtn.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        deleteBtn.setBounds(300, 320, 110, 32);
         frame.add(deleteBtn);
 
         backBtn.addActionListener(e -> {
